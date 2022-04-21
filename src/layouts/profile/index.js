@@ -70,7 +70,7 @@ function Overview() {
           Aperiam at quam minus numquam tempore obcaecati corporis."
                 info={{
                   fullName: "Yash Brid",
-                  mobile: "(44) 123 1234 123",
+                  mobile: "9324093240",
                   email: "yashbrid@doctor.com",
                   location: "PAK",
                 }}

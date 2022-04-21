@@ -171,7 +171,7 @@ function Tables() {
     }
     const resData = await eventService.updateMedicine(postPatientData);
     console.log('The medicine Updated STATUS is: ', resData);
-    toast('Medicin Saved');
+    toast('Medicine Saved');
     handleClose();
   }
 
