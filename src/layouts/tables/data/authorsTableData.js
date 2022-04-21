@@ -26,8 +26,7 @@ import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 
-export default function data(handleOpen) {
-  console.log("handleopen: ", handleOpen);
+export default function data(handleOpen, data) {
   const Author = ({ image, name, email }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
       <MDAvatar src={image} name={name} size="sm" />
@@ -49,6 +48,7 @@ export default function data(handleOpen) {
     </MDBox>
   );
 
+
   return {
     columns: [
       { Header: "author", accessor: "author", width: "45%", align: "left" },
@@ -58,18 +58,17 @@ export default function data(handleOpen) {
       { Header: "Diet", accessor: "action", align: "center" },
     ],
 
-    rows: [
-      {
-        author: <Author image={team2} name="John Michael" />,
-        function: <Job title="40" />,
+    rows: data.map(patient=>{
+      return {
+        author: <Author image={team2} name={patient?.Name} />,
+        function: <Job title={patient?.Age} />,
         status: (
           <MDBox ml={-1}>
             <MDBadge
-              badgeContent="online"
+              badgeContent={patient.Caretaker || "Param Patil"}
               color="success"
               variant="gradient"
               size="sm"
-              onClick={handleOpen}
             />
           </MDBox>
         ),
@@ -79,7 +78,10 @@ export default function data(handleOpen) {
             variant="caption"
             color="text"
             fontWeight="medium"
-            onClick={handleOpen}
+            onClick={()=>{
+              console.log('Clicking the users id: ', patient?.Id);
+                handleOpen(patient?.Id);
+              }}
           >
             Edit
           </MDTypography>
@@ -89,162 +91,174 @@ export default function data(handleOpen) {
             Edit
           </MDTypography>
         ),
-      },
-      {
-        author: <Author image={team2} name="John Michael" />,
-        function: <Job title="40" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge
-              badgeContent="online"
-              color="success"
-              variant="gradient"
-              size="sm"
-              onClick={handleOpen}
-            />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography
-            component="a"
-            variant="caption"
-            color="text"
-            fontWeight="medium"
-            onClick={handleOpen}
-          >
-            Edit
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team2} name="John Michael" />,
-        function: <Job title="40" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge
-              badgeContent="online"
-              color="success"
-              variant="gradient"
-              size="sm"
-              onClick={handleOpen}
-            />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography
-            component="a"
-            variant="caption"
-            color="text"
-            fontWeight="medium"
-            onClick={handleOpen}
-          >
-            Edit
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team2} name="John Michael" />,
-        function: <Job title="40" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge
-              badgeContent="online"
-              color="success"
-              variant="gradient"
-              size="sm"
-              onClick={handleOpen}
-            />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography
-            component="a"
-            variant="caption"
-            color="text"
-            fontWeight="medium"
-            onClick={handleOpen}
-          >
-            Edit
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team2} name="John Michael" />,
-        function: <Job title="40" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge
-              badgeContent="online"
-              color="success"
-              variant="gradient"
-              size="sm"
-              onClick={handleOpen}
-            />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography
-            component="a"
-            variant="caption"
-            color="text"
-            fontWeight="medium"
-            onClick={handleOpen}
-          >
-            Edit
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team2} name="John Michael" />,
-        function: <Job title="40" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge
-              badgeContent="online"
-              color="success"
-              variant="gradient"
-              size="sm"
-              onClick={handleOpen}
-            />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography
-            component="a"
-            variant="caption"
-            color="text"
-            fontWeight="medium"
-            onClick={handleOpen}
-          >
-            Edit
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-    ],
+      }
+    }),
+
+    // rows: [
+    //   {
+    //     author: <Author image={team2} name="John Michael" />,
+    //     function: <Job title="40" />,
+    //     status: (
+    //       <MDBox ml={-1}>
+    //         <MDBadge
+    //           badgeContent="online"
+    //           color="success"
+    //           variant="gradient"
+    //           size="sm"
+    //           // onClick={()=>{
+    //           //   handleOpen(1);
+    //           // }}
+    //         />
+    //       </MDBox>
+    //     ),
+    //     employed: (
+    //       <MDTypography
+    //         component="a"
+    //         variant="caption"
+    //         color="text"
+    //         fontWeight="medium"
+    //         onClick={()=>{
+    //             handleOpen(1);
+    //           }}
+    //       >
+    //         Edit
+    //       </MDTypography>
+    //     ),
+    //     action: (
+    //       <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
+    //         Edit
+    //       </MDTypography>
+    //     ),
+    //   },
+    //   {
+    //     author: <Author image={team2} name="John Michael" />,
+    //     function: <Job title="40" />,
+    //     status: (
+    //       <MDBox ml={-1}>
+    //         <MDBadge
+    //           badgeContent="online"
+    //           color="success"
+    //           variant="gradient"
+    //           size="sm"
+    //           onClick={()=>{
+    //             handleOpen(1);
+    //           }}
+    //         />
+    //       </MDBox>
+    //     ),
+    //     employed: (
+    //       <MDTypography
+    //         component="a"
+    //         variant="caption"
+    //         color="text"
+    //         fontWeight="medium"
+    //         onClick={handleOpen}
+    //       >
+    //         Edit
+    //       </MDTypography>
+    //     ),
+    //     action: (
+    //       <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
+    //         Edit
+    //       </MDTypography>
+    //     ),
+    //   },{
+    //     author: <Author image={team2} name="John Michael" />,
+    //     function: <Job title="40" />,
+    //     status: (
+    //       <MDBox ml={-1}>
+    //         <MDBadge
+    //           badgeContent="online"
+    //           color="success"
+    //           variant="gradient"
+    //           size="sm"
+    //           onClick={()=>{
+    //             handleOpen(1);
+    //           }}
+    //         />
+    //       </MDBox>
+    //     ),
+    //     employed: (
+    //       <MDTypography
+    //         component="a"
+    //         variant="caption"
+    //         color="text"
+    //         fontWeight="medium"
+    //         onClick={handleOpen}
+    //       >
+    //         Edit
+    //       </MDTypography>
+    //     ),
+    //     action: (
+    //       <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
+    //         Edit
+    //       </MDTypography>
+    //     ),
+    //   },{
+    //     author: <Author image={team2} name="John Michael" />,
+    //     function: <Job title="40" />,
+    //     status: (
+    //       <MDBox ml={-1}>
+    //         <MDBadge
+    //           badgeContent="online"
+    //           color="success"
+    //           variant="gradient"
+    //           size="sm"
+    //           onClick={()=>{
+    //             handleOpen(1);
+    //           }}
+    //         />
+    //       </MDBox>
+    //     ),
+    //     employed: (
+    //       <MDTypography
+    //         component="a"
+    //         variant="caption"
+    //         color="text"
+    //         fontWeight="medium"
+    //         onClick={handleOpen}
+    //       >
+    //         Edit
+    //       </MDTypography>
+    //     ),
+    //     action: (
+    //       <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
+    //         Edit
+    //       </MDTypography>
+    //     ),
+    //   },{
+    //     author: <Author image={team2} name="John Michael" />,
+    //     function: <Job title="40" />,
+    //     status: (
+    //       <MDBox ml={-1}>
+    //         <MDBadge
+    //           badgeContent="online"
+    //           color="success"
+    //           variant="gradient"
+    //           size="sm"
+    //           onClick={()=>{
+    //             handleOpen(1);
+    //           }}
+    //         />
+    //       </MDBox>
+    //     ),
+    //     employed: (
+    //       <MDTypography
+    //         component="a"
+    //         variant="caption"
+    //         color="text"
+    //         fontWeight="medium"
+    //         onClick={handleOpen}
+    //       >
+    //         Edit
+    //       </MDTypography>
+    //     ),
+    //     action: (
+    //       <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
+    //         Edit
+    //       </MDTypography>
+    //     ),
+    //   },
+    // ],
   };
 }

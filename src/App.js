@@ -53,6 +53,10 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
+//Toasts
+ import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -140,9 +144,9 @@ export default function App() {
       sx={{ cursor: "pointer" }}
       onClick={handleConfiguratorOpen}
     >
-      <Icon fontSize="small" color="inherit">
+      {/* <Icon fontSize="small" color="inherit">
         settings
-      </Icon>
+      </Icon> */}
     </MDBox>
   );
 
@@ -155,13 +159,13 @@ export default function App() {
             <Sidenav
               color={sidenavColor}
               brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="Material Dashboard 2"
+              brandName="Nishchint Dashboard"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
             <Configurator />
-            {configsButton}
+            {/* {configsButton} */}
           </>
         )}
         {layout === "vr" && <Configurator />}
@@ -169,6 +173,7 @@ export default function App() {
           {getRoutes(routes)}
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
+        <ToastContainer />
       </ThemeProvider>
     </CacheProvider>
   ) : (
@@ -179,13 +184,13 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Material Dashboard 2"
+            brandName="Nishchint Dashboard "
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
           <Configurator />
-          {configsButton}
+          {/* {configsButton} */}
         </>
       )}
       {layout === "vr" && <Configurator />}
@@ -193,6 +198,7 @@ export default function App() {
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
+      <ToastContainer />
     </ThemeProvider>
   );
 }

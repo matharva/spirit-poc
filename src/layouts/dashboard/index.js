@@ -34,25 +34,79 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+//Services
+import { eventService } from "../../services/eventServices";
 
 function Dashboard() {
   // const { sales, tasks } = reportsLineChartData;
 
+  const [ stats, setStats] = useState({
+    patient:0,
+    games: 0,
+    appointments:0 
+  })
+
   const [pictorial, setPictorial] = useState({
     labels: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"],
-    datasets: { label: "Pictorial Test", data: [50, 40, 300, 320, 500, 350, 200] },
+    datasets: { label: "Pictorial Test", data: [0, 0, 0, 0, 0, 0, 0] },
   });
 
   const [audio, setAudio] = useState({
     labels: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"],
-    datasets: { label: "Audio Test", data: [50, 40, 300, 220, 500, 250, 400] },
+    datasets: { label: "Audio Test", data: [0, 0, 0, 0, 0, 0, 0] },
   });
 
   const [read, setRead] = useState({
     labels: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"],
-    datasets: { label: "Read Test", data: [50, 40, 300, 220, 500, 250, 400] },
+    datasets: { label: "Read Test", data: [0, 0, 0, 0, 0, 0, 0] },
   });
+
+  useEffect(async()=>{
+    const postDocData = {
+      id: "T3HSB"
+    }
+
+    const postPatientData = {
+      id: "3MOIC"
+    }
+
+    let resData = await eventService.getStats(postDocData);
+    console.log('The  stats Data is: ', resData);
+    setStats({
+      patient: resData?.number_patients || 4,
+      games: resData?.number_games || 30,
+      appointments: 7
+    })
+
+    resData = await eventService.getDoctor(postDocData);
+    console.log('Doctor data is: ', resData);
+
+    const patientData = await eventService.getPatient(postPatientData);
+    console.log('Patient data is: ', resData);
+
+    const picScore = patientData?.Picture.map(i=>i?.Score||0);
+    const audioScore = patientData?.Audio.map(i=>i?.Score||0);
+    const readScore = patientData?.Word.map(i=>i?.Score||0);
+
+    setRead({
+      labels: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"],
+      datasets: { label: "Read Test", data: picScore },
+    })
+
+    setAudio({
+      labels: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"],
+      datasets: { label: "Read Test", data: audioScore },
+    })
+
+    setPictorial({
+      labels: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"],
+      datasets: { label: "Read Test", data: picScore },
+    })
+
+
+  }, [])
 
   return (
     <DashboardLayout>
@@ -65,7 +119,7 @@ function Dashboard() {
                 color="dark"
                 icon="weekend"
                 title="Patients"
-                count={281}
+                count={stats.patient}
                 percentage={{
                   color: "success",
                   amount: "+55%",
@@ -94,7 +148,7 @@ function Dashboard() {
                 color="success"
                 icon="store"
                 title="Games played"
-                count="34k"
+                count={stats.games}
                 percentage={{
                   color: "success",
                   amount: "+1%",
@@ -109,11 +163,11 @@ function Dashboard() {
                 color="primary"
                 icon="person_add"
                 title="Appointments"
-                count="+91"
+                count={stats.appointments}
                 percentage={{
                   color: "success",
-                  amount: "",
-                  label: "Just updated",
+                    amount: "+2%",
+                  label: "than yesterday",
                 }}
               />
             </MDBox>
