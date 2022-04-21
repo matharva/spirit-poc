@@ -92,12 +92,12 @@ function Dashboard() {
 
     setRead({
       labels: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"],
-      datasets: { label: "Read Test", data: picScore },
+      datasets: { label: "Pictorial Test", data: picScore },
     })
 
     setAudio({
       labels: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"],
-      datasets: { label: "Read Test", data: audioScore },
+      datasets: { label: "Audio Test", data: audioScore },
     })
 
     setPictorial({

@@ -82,6 +82,9 @@ export default function data(handleOpen, data) {
               console.log('Clicking the users id: ', patient?.Id);
                 handleOpen(patient?.Id);
               }}
+            styles={{
+              cursor:"pointer"
+            }}
           >
             Edit
           </MDTypography>
